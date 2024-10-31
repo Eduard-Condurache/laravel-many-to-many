@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\{
     Project,
-    Type
+    Type,
+    Technology
 };
 use Illuminate\Http\Request;
 

@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Technology extends Model
 {
     use HasFactory;
+
+    // Relations
+
+    public function projects() {
+        return $this->belongsToMany(Project::class)
+                    ->withTimestamps();
+    }
 }
+
+
