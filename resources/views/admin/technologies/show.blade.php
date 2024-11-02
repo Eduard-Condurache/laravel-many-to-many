@@ -25,17 +25,17 @@
                         Alle:  {{ $technology->created_at->format('H:i') }}
                     </h6>
 
-                    {{-- <h6>
+                    <h6>
                         Progetti collegati:
                     </h6>
                     <ul>
-                        @foreach($type->projects as $project)
+                        @foreach($technology->projects as $project)
                         <li>
                             <a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">
                                 {{ $project->title }}
                             </a>
                         </li>
-                        @endforeach --}}
+                        @endforeach
                     </ul>
                 </div>
             </div>

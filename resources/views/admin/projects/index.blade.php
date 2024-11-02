@@ -17,6 +17,7 @@
                     <th scope="col">Titolo</th>
                     <th scope="col">Categoria</th>
                     <th scope="col">Tipologia Progetto</th>
+                    <th scope="col">Tecnologie</th>
                     <th scope="col">VEDI</th>
                     <th scope="col">MODIFICA</th>
                     <th scope="col">ELIMINA</th>
@@ -36,6 +37,13 @@
                       @else
                         -
                       @endif    
+                    </td>
+                    <td>
+                      @foreach ($project->technologies as $technology)
+                        <a href="{{ route('admin.technologies.show', ['technology' => $technology->id]) }}" class="badge text-bg-success">
+                          {{ $technology->name }}
+                        </a>
+                      @endforeach
                     </td>
                     <td>
                       <a href="{{ route('admin.projects.show',['project' => $project->id]) }}" class="btn btn-primary">

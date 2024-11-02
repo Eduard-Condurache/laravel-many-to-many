@@ -5,11 +5,6 @@
 @section('main-content')
     <div class="row">
         <div class="col">
-          <div class="my-3">
-            <a href="{{ route('admin.technologies.create') }}" class="btn btn-primary">
-              + Aggiungi tecnologia
-            </a>
-          </div>
             <table class="table table-dark table-striped">
                 <thead>
                   <tr>
@@ -17,7 +12,6 @@
                     <th scope="col">Nome</th>
                     <th scope="col"># Tecnologie collegate</th>
                     <th scope="col">VEDI</th>
-                    <th scope="col">MODIFICA</th>
                     <th scope="col">ELIMINA</th>
                   </tr>
                 </thead>
@@ -30,11 +24,6 @@
                     <td>
                       <a href="{{ route('admin.technologies.show',['technology' => $technology->id]) }}" class="btn btn-primary">
                         VEDI
-                      </a>
-                    </td>
-                    <td>
-                      <a href="{{ route('admin.technologies.edit',['technology' => $technology->id]) }}" class="btn btn-secondary">
-                        Modifica
                       </a>
                     </td>
                     <td>

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Schema;
 
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Technology;
 
 class ProjectSeeder extends Seeder
 {
@@ -28,7 +29,7 @@ class ProjectSeeder extends Seeder
             
             $randomType = Type::inRandomOrder()->first();
 
-            Project::create([
+            $project = Project::create([
                 'title' => fake()->company(),
                 'description' => fake()->sentence(5),
                 'image' => fake()->word(),
@@ -36,6 +37,20 @@ class ProjectSeeder extends Seeder
                 'type_id' => $randomType->id
 
             ]);
+
+            $technologyIds = [];
+
+            for ($j = 0; $j < rand(0, Technology::count()); $j++) {
+
+                $randomTecnology = Technology::inRandomOrder()->first();
+
+                if (!in_array($randomTecnology->id, $technologyIds)) {
+                    $technologyIds[] = $randomTecnology->id;
+                }
+            }
+
+            $project->technologies()->sync($technologyIds);
+
         }
     }
 }

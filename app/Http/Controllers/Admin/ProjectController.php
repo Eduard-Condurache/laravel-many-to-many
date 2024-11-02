@@ -29,7 +29,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('types','technologies'));
     }
 
     /**
@@ -43,7 +44,8 @@ class ProjectController extends Controller
             'description' => 'required|min:3|max:4096',
             'image' => 'nullable|min:5|max:2048|url',
             'category' => 'required|min:2|max:64',
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' => 'nullable|exists:types,id',
+            'technologies' => 'nullable|array|exists:technologies,id'
         ]);
 
 
@@ -51,6 +53,8 @@ class ProjectController extends Controller
 
 
         $project = Project::create($data);
+
+        $project->technologies()->sync($data['technologies']);
 
 
         return redirect()->route('admin.projects.show', ['project' => $project->id]);
@@ -70,8 +74,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -84,7 +89,8 @@ class ProjectController extends Controller
             'description' => 'required|min:3|max:4096',
             'image' => 'nullable|max:2048|url',
             'category' => 'required|min:2|max:64',
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' => 'nullable|exists:types,id',
+            'technologies' => 'nullable|array|exists:technologies,id'
         ]);
 
 
@@ -92,6 +98,8 @@ class ProjectController extends Controller
 
 
         $project->update($data);
+
+        $project->technologies()->sync($data['technologies']);
 
 
         return redirect()->route('admin.projects.show', ['project' => $project->id]);

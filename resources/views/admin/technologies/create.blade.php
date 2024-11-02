@@ -1,6 +1,6 @@
-{{-- @extends('layouts.app')
+@extends('layouts.app')
 
-@section('page-title', 'Crea il tipo')
+@section('page-title', 'Crea una tecnologia')
 
 @section('main-content')
     <div class="row">
@@ -75,4 +75,4 @@
             </div>
         </div>
     </div>
-@endsection --}}
+@endsection

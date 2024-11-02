@@ -111,6 +111,26 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="form-label">Tecnologie</label>
+                            @foreach($technologies as $technology)
+                                <div class="form-check form-check-inline">
+                                    <input
+                                        @if($project->technologies->contains($technology->id))
+                                          checked  
+                                        @endif 
+                                        class="form-check-input" 
+                                        type="checkbox"
+                                        name="technologies[]" 
+                                        id="technology-{{ $technology->id  }}" 
+                                        value="{{ $technology->id }}">
+                                    <label 
+                                        class="form-check-label" 
+                                        for="technology-{{ $technology->id }}">{{ $technology->name }}</label>
+                                </div>
+                            @endforeach
+                        </div>
         
                           <div>
                             <button type="submit" class="btn btn-success">
