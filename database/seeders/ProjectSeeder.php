@@ -32,7 +32,6 @@ class ProjectSeeder extends Seeder
             $project = Project::create([
                 'title' => fake()->company(),
                 'description' => fake()->sentence(5),
-                'image' => fake()->word(),
                 'category' => fake()->word(2, true),
                 'type_id' => $randomType->id
 

@@ -34,6 +34,12 @@
                             @endforeach
                         </li>
                     </ul>
+
+                    <div>
+                        @if($project->image)
+                            <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }} " class="card-img-bottom">
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

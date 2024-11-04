@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+// Helpers
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\{
     Project,
     Type,
@@ -42,7 +45,7 @@ class ProjectController extends Controller
         $request->validate([
             'title' => 'required|min:3|max:64',
             'description' => 'required|min:3|max:4096',
-            'image' => 'nullable|min:5|max:2048|url',
+            'image' => 'nullable|image|max:2048',
             'category' => 'required|min:2|max:64',
             'type_id' => 'nullable|exists:types,id',
             'technologies' => 'nullable|array|exists:technologies,id'
@@ -50,6 +53,11 @@ class ProjectController extends Controller
 
 
         $data = $request->all();
+
+        if(isset($data['image'])) {
+            $imgPath = Storage::disk('public')->put('uploads', $data['image']);
+            $data['image'] = $imgPath;
+        }
 
 
         $project = Project::create($data);
@@ -87,7 +95,7 @@ class ProjectController extends Controller
         $request->validate([
             'title' => 'required|min:3|max:64',
             'description' => 'required|min:3|max:4096',
-            'image' => 'nullable|max:2048|url',
+            'image' => 'nullable|image|max:2048',
             'category' => 'required|min:2|max:64',
             'type_id' => 'nullable|exists:types,id',
             'technologies' => 'nullable|array|exists:technologies,id'
