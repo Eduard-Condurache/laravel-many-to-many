@@ -21,9 +21,14 @@
                         </li>
                         <li>
                             Tipo di progetto collegato:
+
+                            @if(isset($project->type))
                             <a href="{{ route('admin.types.show', ['type' => $project->type->id]) }}">
                                  {{ $project->type->name }}
                             </a>
+                            @else
+                                -
+                            @endif
                         </li>
                         <li>
                             Tecnologie:

@@ -17,7 +17,7 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('admin.projects.update', ['project' => $project ->id]) }}" method="POST">
+                    <form action="{{ route('admin.projects.update', ['project' => $project ->id]) }}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <div class="mb-3">
@@ -60,14 +60,25 @@
                                 for="image" 
                                 class="form-label">Immagine</label>
                             <input 
-                                type="text" 
+                                type="file" 
                                 class="form-control @error('image') is-invalid @enderror" 
                                 id="image" 
                                 name="image"
-                                value="{{ old('image', $project->image) }}"
-                                minlength="5"
-                                maxlength="2048" 
-                                placeholder="Inserisci il link del immagine">
+                                placeholder="Carica un immagine..">
+
+                                @if ($project->image)
+                                    <div class="mt-3"> 
+                                        <h4>Preview Immagine:</h4>
+                                        <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }} " class="preview-img">
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="1" id="remove_preview" name="remove_preview">
+                                            <label class="form-check-label" for="remove_preview">
+                                                Rimuovi preview
+                                            </label>
+                                          </div>
+                                    </div>
+                                @endif
                           </div>
         
                           <div class="mb-3">

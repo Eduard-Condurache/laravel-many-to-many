@@ -98,12 +98,26 @@ class ProjectController extends Controller
             'image' => 'nullable|image|max:2048',
             'category' => 'required|min:2|max:64',
             'type_id' => 'nullable|exists:types,id',
-            'technologies' => 'nullable|array|exists:technologies,id'
+            'technologies' => 'nullable|array|exists:technologies,id',
+            'remove_preview' => 'nullable'
         ]);
 
 
         $data = $request->all();
 
+        if(isset($data['image'])) {
+            if($project->image) {
+                Storage::delete($project->image);
+                $project->image = null;
+            }
+
+            $imgPath = Storage::put('uploads', $data['image']);
+            $data['image'] = $imgPath;
+        }
+        else if (isset($data['remove_preview']) && $project->image) {
+            Storage::delete($project->image);
+            $project->image = null;
+        }
 
         $project->update($data);
 
@@ -118,6 +132,10 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if($project->image) {
+            Storage::delete($project->image);
+        }
+
         $project->delete();
 
         return redirect()->route('admin.projects.index');
